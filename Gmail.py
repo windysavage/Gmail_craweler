@@ -39,16 +39,18 @@ def build_api():
 def get_subject(idx):
     msgs = service.users().messages().get(userId=userId, id=idx, format="metadata").execute()
     details = msgs["payload"]["headers"]
-    out = ["", ""]
+    out = ["", "", ""]
     for detail in details:
         if detail["name"] == "Subject":
             out[0] = detail["value"]
         if detail["name"] == "From":
             out[1] = detail["value"]
+        if detail["name"] == "Date":
+            out[2] = detail["value"]
     return out
 
 def get_idxs():
-    results = service.users().messages().list(userId=userId, q="銀行", includeSpamTrash=True).execute()
+    results = service.users().messages().list(userId=userId, q=query, includeSpamTrash=True).execute()
     next_page = results["nextPageToken"]
     results = results["messages"]
 
@@ -76,13 +78,25 @@ def words_in_sub(exclude_words, sub):
     return False
 
 def export_to_csv(subs):
-    df = pd.DataFrame(subs, columns=["subject", "from"])
-    df.to_csv("subject_list.csv", index=True, encoding="utf_8_sig")
+    df = pd.DataFrame(subs, columns=["subject", "sender", "date"])
+    file_path = f"result/subject_list_{user_name}.csv"
+    df.to_csv(file_path, index=True, encoding="utf_8_sig")
 
 def main():
     subs = []
     idxs = get_idxs()
-    exclude_words = ["登入通知", "成功登入", "登入成功", "交易結果", "文案生成", "主旨生成", "對帳單", "帳單", "登入", "file", "IEK", "WTO"]
+    exclude_words = ["登入通知", 
+                     "成功登入", 
+                     "登入成功", 
+                     "交易結果", 
+                     "文案生成", 
+                     "主旨生成", 
+                     "對帳單", 
+                     "帳單", 
+                     "登入", 
+                     "file", 
+                     "IEK", 
+                     "WTO"]
     for idx in idxs:
         sub = get_subject(idx)
         if not words_in_sub(exclude_words, sub[0]):
@@ -97,5 +111,6 @@ def main():
 if __name__ == '__main__':
     service = build_api()
     userId = "me"
-    # userId = input("請輸入你的Gmail信箱：")
+    user_name = input("請輸入你的姓名縮寫：")
+    query = input("請輸入搜尋關鍵字：")
     main()
