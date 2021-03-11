@@ -1,4 +1,6 @@
 from __future__ import print_function
+import random
+import string
 import pickle
 import os.path
 import pandas as pd
@@ -51,6 +53,7 @@ def get_subject(idx):
 
 def get_idxs():
     results = service.users().messages().list(userId=userId, q=query, includeSpamTrash=True).execute()
+    
     next_page = results["nextPageToken"]
     results = results["messages"]
 
@@ -111,6 +114,8 @@ def main():
 if __name__ == '__main__':
     service = build_api()
     userId = "me"
-    user_name = input("請輸入你的姓名縮寫：")
+    user_name = "".join(random.choice(string.ascii_lowercase) for i in range(5))
     query = input("請輸入搜尋關鍵字：")
+    if query == "None":
+        query = None
     main()
