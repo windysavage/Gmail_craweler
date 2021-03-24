@@ -1,6 +1,10 @@
 # Gmail_craweler
 Utilize Gmail API to fetch information from your Gmail account
 
+### Requirements
+python 3.8+
+
+
 ### Setting
 ```
 conda create --name Gmail python=3.8
@@ -14,7 +18,7 @@ python Gmail.py
 ```
 ### Warning
 - Please don't open the "subject_list_*.csv" file when running the script
-- Please close the access to your Gmail account
+- Please close the access to your Gmail account after running the script
 - Please check the output file and make sure there is no sensitive information or something you don't want to be seen
   
 ### How to close the access right
