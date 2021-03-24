@@ -16,6 +16,10 @@ pip install -r requirements.txt
 ```
 python Gmail.py
 ```
+
+- You can modify exclude_words.txt to make sure that subjects containing these word will not be included
+- 搜尋關鍵字可為"銀行", "優惠" ... 搜尋所有郵件請輸入"None"
+
 ### Warning
 - Please don't open the "subject_list_*.csv" file when running the script
 - Please close the access to your Gmail account after running the script

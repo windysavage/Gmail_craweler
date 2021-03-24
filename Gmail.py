@@ -62,7 +62,7 @@ def get_idxs():
         idxs.append(result["id"])
 
     while next_page is not None:
-        results = service.users().messages().list(userId=userId, q="銀行", pageToken=next_page, includeSpamTrash=True).execute()
+        results = service.users().messages().list(userId=userId, q=query, pageToken=next_page, includeSpamTrash=True).execute()
 
         if "nextPageToken" not in list(results.keys()):
             break
