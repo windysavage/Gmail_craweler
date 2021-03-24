@@ -11,6 +11,7 @@ conda create --name Gmail python=3.8
 activate Gmail
 pip install -r requirements.txt
 ```
+- Please acquire a secret file from me before running
 
 ### Running
 ```
