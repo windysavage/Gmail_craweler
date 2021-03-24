@@ -89,7 +89,7 @@ def main():
     subs = []
     idxs = get_idxs()
 
-    with open("exclude_words.txt") as f:
+    with open("exclude_words.txt", encoding="utf-8") as f:
         exclude_words = f.readlines()
         exclude_words = [word.strip("\n").strip(" ") for word in exclude_words]
 
@@ -111,4 +111,6 @@ if __name__ == '__main__':
     query = input("請輸入搜尋關鍵字：")
     if query == "None":
         query = None
+    if not os.path.isdir("./result"):
+        os.mkdir("./result")
     main()
