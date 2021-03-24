@@ -88,18 +88,11 @@ def export_to_csv(subs):
 def main():
     subs = []
     idxs = get_idxs()
-    exclude_words = ["登入通知", 
-                     "成功登入", 
-                     "登入成功", 
-                     "交易結果", 
-                     "文案生成", 
-                     "主旨生成", 
-                     "對帳單", 
-                     "帳單", 
-                     "登入", 
-                     "file", 
-                     "IEK", 
-                     "WTO"]
+
+    with open("exclude_words.txt") as f:
+        exclude_words = f.readlines()
+        exclude_words = [word.strip("\n").strip(" ") for word in exclude_words]
+
     for idx in idxs:
         sub = get_subject(idx)
         if not words_in_sub(exclude_words, sub[0]):
